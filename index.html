@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لاتری آمریکا - شمارش معکوس</title>
+    <title>لاتری آمریکا - شمارش معکوس دقیق</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -538,13 +538,13 @@
     </div>
 
     <script>
+        // تنظیم تاریخ هدف - ۱۸ روز از الان
+        const now = new Date();
+        const targetDate = new Date(now);
+        targetDate.setDate(now.getDate() + 18);
+        
         // محاسبه و به روز رسانی شمارش معکوس
         function updateCountdown() {
-            // تعیین تاریخ هدف (۱۸ روز از الان)
-            const targetDate = new Date();
-            targetDate.setDate(targetDate.getDate() + 18);
-            targetDate.setHours(0, 0, 0, 0); // ساعت را روی ۰۰:۰۰:۰۰ تنظیم می‌کنیم
-            
             const now = new Date();
             const diff = targetDate - now;
             
