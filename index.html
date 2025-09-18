@@ -62,7 +62,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='100' height='100'%3E%3Ccircle cx='50' cy='50' r='2' fill='white' opacity='0.1'/%3E%3C/svg%3E");
+            background: url("image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='100' height='100'%3E%3Ccircle cx='50' cy='50' r='2' fill='white' opacity='0.1'/%3E%3C/svg%3E");
             background-size: 50px;
             opacity: 0.3;
         }
@@ -72,12 +72,14 @@
             font-weight: 900;
             margin-bottom: 10px;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: -0.5px;
         }
         
         .subtitle {
             font-size: 1.4rem;
             font-weight: 500;
             opacity: 0.9;
+            margin-bottom: 15px;
         }
         
         .badge {
@@ -92,6 +94,7 @@
             font-size: 0.9rem;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             animation: pulse 2s infinite;
+            z-index: 2;
         }
         
         @keyframes pulse {
@@ -114,6 +117,20 @@
             color: var(--primary-dark);
             margin-bottom: 20px;
             font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .countdown-title::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 3px;
         }
         
         .countdown {
@@ -121,17 +138,25 @@
             justify-content: center;
             gap: 15px;
             margin-bottom: 30px;
+            flex-wrap: wrap;
         }
         
         .time-unit {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
             border-radius: 15px;
-            padding: 20px 15px;
-            min-width: 90px;
+            padding: 25px 20px;
+            min-width: 100px;
             box-shadow: 0 8px 20px rgba(26, 86, 219, 0.3);
             position: relative;
             overflow: hidden;
+            transition: all 0.3s ease;
+            transform: translateY(0);
+        }
+        
+        .time-unit:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(26, 86, 219, 0.4);
         }
         
         .time-unit::before {
@@ -145,33 +170,60 @@
         }
         
         .time-value {
-            font-size: 2.8rem;
+            font-size: 3rem;
             font-weight: 800;
             line-height: 1;
             margin-bottom: 5px;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            font-family: 'Arial', sans-serif;
         }
         
         .time-label {
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 500;
             opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         .stats-section {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            gap: 25px;
             margin: 40px 0;
         }
         
         .stat-card {
             background: white;
             border-radius: 15px;
-            padding: 25px;
+            padding: 30px 25px;
             text-align: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             border-top: 5px solid var(--primary);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .stat-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
         
         .stat-card.success {
@@ -187,10 +239,11 @@
         }
         
         .stat-value {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 800;
             color: var(--primary);
             margin-bottom: 10px;
+            line-height: 1;
         }
         
         .success .stat-value {
@@ -206,113 +259,178 @@
         }
         
         .stat-label {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--dark);
             font-weight: 600;
+            margin-bottom: 5px;
         }
         
         .stat-desc {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: #64748b;
             margin-top: 10px;
+            line-height: 1.5;
         }
         
         .consultant-section {
             text-align: center;
-            margin: 40px 0;
+            margin: 50px 0;
+            position: relative;
+        }
+        
+        .consultant-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
         }
         
         .consultant-title {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: var(--primary-dark);
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             font-weight: 700;
+            position: relative;
+            display: inline-block;
+            background: white;
+            padding: 0 20px;
+            z-index: 2;
         }
         
         .consultant-card {
             background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            border-radius: 15px;
-            padding: 25px;
+            border-radius: 20px;
+            padding: 40px 30px;
             display: inline-block;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            border: 2px dashed var(--primary);
-            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border: 3px dashed var(--primary);
+            max-width: 550px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .consultant-card::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(100%); }
+            100% { transform: translateX(100%) translateY(-100%); }
         }
         
         .consultant-name {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             color: var(--primary-dark);
             font-weight: 800;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         .consultant-bio {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--dark);
-            margin-bottom: 20px;
-            line-height: 1.6;
+            margin-bottom: 25px;
+            line-height: 1.8;
+            font-weight: 500;
         }
         
         .stats {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
+            gap: 30px;
+            margin-top: 25px;
+            flex-wrap: wrap;
         }
         
         .stat {
             background: white;
-            border-radius: 12px;
-            padding: 15px;
-            min-width: 120px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            padding: 20px 15px;
+            min-width: 130px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .stat:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
         
         .stat-value-small {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 800;
             color: var(--primary);
             margin-bottom: 5px;
+            line-height: 1;
         }
         
         .stat-label-small {
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: var(--dark);
             font-weight: 500;
         }
         
         .contact-section {
             text-align: center;
-            margin: 40px 0 20px;
+            margin: 50px 0 30px;
         }
         
         .contact-title {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: var(--primary-dark);
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             font-weight: 800;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .contact-title::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 2px;
         }
         
         .contact-buttons {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
             flex-wrap: wrap;
+            margin-top: 20px;
         }
         
         .contact-button {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 18px 32px;
-            border-radius: 15px;
+            gap: 15px;
+            padding: 20px 40px;
+            border-radius: 20px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
+            min-width: 250px;
+            text-align: center;
+            justify-content: center;
         }
         
         .contact-button::before {
@@ -323,11 +441,23 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(rgba(255, 255, 255, 0.2), transparent);
+            z-index: 1;
+        }
+        
+        .contact-button span {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .contact-button i {
+            position: relative;
+            z-index: 2;
+            font-size: 2rem;
         }
         
         .contact-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
         
         .contact-button:active {
@@ -344,27 +474,25 @@
             color: white;
         }
         
-        .icon {
-            font-size: 1.8rem;
-        }
-        
         .footer {
             background: var(--dark);
             color: white;
-            padding: 30px;
+            padding: 40px 30px;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 1rem;
         }
         
         .footer-text {
             opacity: 0.8;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
         }
         
         .copyright {
-            margin-top: 20px;
-            padding-top: 20px;
+            margin-top: 25px;
+            padding-top: 25px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 500;
         }
         
         @media (max-width: 768px) {
@@ -385,36 +513,44 @@
             }
             
             .countdown {
-                flex-wrap: wrap;
+                gap: 10px;
             }
             
             .time-unit {
-                min-width: 70px;
-                padding: 15px 10px;
+                min-width: 80px;
+                padding: 20px 15px;
             }
             
             .time-value {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
             }
             
             .stats-section {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
             
             .consultant-name {
-                font-size: 1.8rem;
+                font-size: 2rem;
+            }
+            
+            .consultant-bio {
+                font-size: 1.1rem;
             }
             
             .stats {
-                flex-wrap: wrap;
+                gap: 20px;
             }
             
             .contact-buttons {
                 flex-direction: column;
+                gap: 15px;
             }
             
             .contact-button {
-                justify-content: center;
+                min-width: auto;
+                padding: 18px 30px;
+                font-size: 1.2rem;
             }
         }
         
@@ -425,19 +561,57 @@
             transform: rotate(45deg);
             background: var(--accent);
             color: white;
-            padding: 8px 40px;
+            padding: 12px 50px;
             font-weight: 700;
-            font-size: 0.9rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            font-size: 1rem;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+            z-index: 3;
+            letter-spacing: 1px;
         }
         
         .date-display {
             background: rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            padding: 10px 15px;
+            border-radius: 12px;
+            padding: 12px 20px;
             display: inline-block;
-            margin-top: 15px;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+        }
+        
+        /* Animation for countdown digits */
+        .time-value {
+            transition: all 0.5s ease;
+        }
+        
+        .time-value.change {
+            animation: flip 0.5s ease;
+        }
+        
+        @keyframes flip {
+            0% { transform: rotateX(0deg); }
+            50% { transform: rotateX(90deg); }
+            100% { transform: rotateX(0deg); }
+        }
+        
+        .reset-button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 12px;
+            font-weight: 700;
             font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
+        }
+        
+        .reset-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(225, 29, 72, 0.4);
         }
     </style>
 </head>
@@ -472,6 +646,7 @@
                         <div class="time-label">ثانیه</div>
                     </div>
                 </div>
+                <button class="reset-button" onclick="resetTimer()">بازنشانی زمان (۱۸ روز)</button>
             </div>
             
             <div class="stats-section">
@@ -484,13 +659,13 @@
                 <div class="stat-card warning">
                     <div class="stat-value">۵۴</div>
                     <div class="stat-label">زیر پروسس</div>
-                    <div class="stat-desc">(تنظیم نمودن عکس و مشخصات)</div>
+                    <div class="stat-desc">تنظیم نمودن عکس و مشخصات</div>
                 </div>
                 
                 <div class="stat-card danger">
                     <div class="stat-value">۲۱</div>
                     <div class="stat-label">عکس ارسالی رد شده</div>
-                    <div class="stat-desc">(معیار برای ثبت نام نبود)</div>
+                    <div class="stat-desc">معیار برای ثبت نام نبود</div>
                 </div>
             </div>
             
@@ -517,11 +692,11 @@
                 <h3 class="contact-title">همین حالا برای مشاوره رایگان اقدام کنید</h3>
                 <div class="contact-buttons">
                     <a href="https://t.me/Mohammadparsa001" class="contact-button telegram">
-                        <i class="fab fa-telegram icon"></i>
+                        <i class="fab fa-telegram"></i>
                         <span>@Mohammadparsa001</span>
                     </a>
                     <a href="https://wa.me/93791979726" class="contact-button whatsapp">
-                        <i class="fab fa-whatsapp icon"></i>
+                        <i class="fab fa-whatsapp"></i>
                         <span>0791979726</span>
                     </a>
                 </div>
@@ -535,20 +710,80 @@
                 © 2023 محمد پارسا - همه حقوق محفوظ است
             </div>
         </div>
-    </div>
 
     <script>
-        // تنظیم تاریخ هدف - ۱۸ روز از الان
-        const now = new Date();
-        const targetDate = new Date(now);
-        targetDate.setDate(now.getDate() + 18);
+        // تابع برای دریافت زمان باقیمانده از localStorage یا تنظیم مقدار اولیه
+        function getRemainingTime() {
+            const savedTime = localStorage.getItem('lotteryCountdown');
+            if (savedTime) {
+                const savedData = JSON.parse(savedTime);
+                const savedTimestamp = new Date(savedData.timestamp);
+                const now = new Date();
+                const elapsed = Math.floor((now - savedTimestamp) / 1000); // ثانیه‌های گذشته
+                
+                // محاسبه زمان باقیمانده با کم کردن زمان گذشته
+                let remainingSeconds = savedData.totalSeconds - elapsed;
+                
+                // اگر زمان تمام شده باشد
+                if (remainingSeconds <= 0) {
+                    return { days: 0, hours: 0, minutes: 0, seconds: 0, totalSeconds: 0 };
+                }
+                
+                return convertSecondsToTime(remainingSeconds);
+            } else {
+                // تنظیم مقدار اولیه: 18 روز
+                const totalSeconds = 18 * 24 * 60 * 60;
+                const timeData = convertSecondsToTime(totalSeconds);
+                timeData.totalSeconds = totalSeconds;
+                timeData.timestamp = new Date().toISOString();
+                
+                // ذخیره در localStorage
+                localStorage.setItem('lotteryCountdown', JSON.stringify(timeData));
+                return timeData;
+            }
+        }
         
-        // محاسبه و به روز رسانی شمارش معکوس
-        function updateCountdown() {
-            const now = new Date();
-            const diff = targetDate - now;
+        // تبدیل ثانیه به روز، ساعت، دقیقه و ثانیه
+        function convertSecondsToTime(totalSeconds) {
+            const days = Math.floor(totalSeconds / (24 * 60 * 60));
+            const hours = Math.floor((totalSeconds % (24 * 60 * 60)) / (60 * 60));
+            const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
+            const seconds = Math.floor(totalSeconds % 60);
             
-            if (diff < 0) {
+            return { days, hours, minutes, seconds, totalSeconds };
+        }
+        
+        // ذخیره زمان فعلی در localStorage
+        function saveCurrentTime() {
+            const daysElement = document.getElementById('days');
+            const hoursElement = document.getElementById('hours');
+            const minutesElement = document.getElementById('minutes');
+            const secondsElement = document.getElementById('seconds');
+            
+            const days = parseInt(daysElement.textContent) || 0;
+            const hours = parseInt(hoursElement.textContent) || 0;
+            const minutes = parseInt(minutesElement.textContent) || 0;
+            const seconds = parseInt(secondsElement.textContent) || 0;
+            
+            const totalSeconds = days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60 + seconds;
+            
+            const timeData = {
+                days,
+                hours,
+                minutes,
+                seconds,
+                totalSeconds,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lotteryCountdown', JSON.stringify(timeData));
+        }
+        
+        // به روز رسانی شمارش معکوس
+        function updateCountdown() {
+            const timeData = getRemainingTime();
+            
+            if (timeData.totalSeconds <= 0) {
                 document.getElementById('days').textContent = '00';
                 document.getElementById('hours').textContent = '00';
                 document.getElementById('minutes').textContent = '00';
@@ -556,20 +791,86 @@
                 return;
             }
             
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const minutes = Math.floor((diff / (1000 * 60)) % 60);
-            const seconds = Math.floor((diff / 1000) % 60);
+            // کاهش یک ثانیه
+            let { days, hours, minutes, seconds, totalSeconds } = timeData;
+            totalSeconds--;
             
-            document.getElementById('days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            if (totalSeconds < 0) {
+                days = hours = minutes = seconds = 0;
+                totalSeconds = 0;
+            } else {
+                ({ days, hours, minutes, seconds } = convertSecondsToTime(totalSeconds));
+            }
+            
+            // دریافت المان‌ها
+            const daysElement = document.getElementById('days');
+            const hoursElement = document.getElementById('hours');
+            const minutesElement = document.getElementById('minutes');
+            const secondsElement = document.getElementById('seconds');
+            
+            // به روز رسانی با انیمیشن اگر مقدار تغییر کرده باشد
+            if (parseInt(daysElement.textContent) !== days) {
+                daysElement.textContent = days.toString().padStart(2, '0');
+                daysElement.classList.add('change');
+                setTimeout(() => daysElement.classList.remove('change'), 500);
+            }
+            
+            if (parseInt(hoursElement.textContent) !== hours) {
+                hoursElement.textContent = hours.toString().padStart(2, '0');
+                hoursElement.classList.add('change');
+                setTimeout(() => hoursElement.classList.remove('change'), 500);
+            }
+            
+            if (parseInt(minutesElement.textContent) !== minutes) {
+                minutesElement.textContent = minutes.toString().padStart(2, '0');
+                minutesElement.classList.add('change');
+                setTimeout(() => minutesElement.classList.remove('change'), 500);
+            }
+            
+            if (parseInt(secondsElement.textContent) !== seconds) {
+                secondsElement.textContent = seconds.toString().padStart(2, '0');
+                secondsElement.classList.add('change');
+                setTimeout(() => secondsElement.classList.remove('change'), 500);
+            }
+            
+            // ذخیره زمان جدید
+            const newTimeData = {
+                days,
+                hours,
+                minutes,
+                seconds,
+                totalSeconds,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lotteryCountdown', JSON.stringify(newTimeData));
+        }
+        
+        // بازنشانی زمان به 18 روز
+        function resetTimer() {
+            const totalSeconds = 18 * 24 * 60 * 60;
+            const timeData = convertSecondsToTime(totalSeconds);
+            timeData.totalSeconds = totalSeconds;
+            timeData.timestamp = new Date().toISOString();
+            
+            localStorage.setItem('lotteryCountdown', JSON.stringify(timeData));
+            
+            // به روز رسانی نمایش
+            document.getElementById('days').textContent = '18';
+            document.getElementById('hours').textContent = '00';
+            document.getElementById('minutes').textContent = '00';
+            document.getElementById('seconds').textContent = '00';
         }
         
         // راه اندازی زمانی که DOM لود شد
         document.addEventListener('DOMContentLoaded', () => {
-            updateCountdown();
+            // نمایش زمان فعلی
+            const timeData = getRemainingTime();
+            document.getElementById('days').textContent = timeData.days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = timeData.hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = timeData.minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = timeData.seconds.toString().padStart(2, '0');
+            
             // به روز رسانی شمارش معکوس هر ثانیه
             setInterval(updateCountdown, 1000);
         });
